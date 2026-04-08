@@ -1,19 +1,33 @@
 # 🍔 Food Ordering App
 
 > A modern and responsive food ordering web application built with **React** and **Vite**.
-The app allows users to browse products, manage a shopping cart, and experience a clean and smooth UI.
+> The app allows users to browse products, manage a shopping cart, and experience a clean and smooth UI.
 
 ---
 
 ## 🚀 Live Demo
 
-👉 *Coming Soon* (Add your Vercel / Netlify link here)
+👉 _Coming Soon_ (Add your Vercel / Netlify link here)
 
 ---
 
 ## 📸 Screenshots
 
-> Add screenshots here to showcase the UI
+### Home Page
+
+![Home](./public/screenshots/Home.png)
+
+### Cart
+
+![Cart](./public/screenshots/Cart.png)
+
+### Checkout
+
+![Checkout](./public/screenshots/Checkout.png)
+
+### Mobile-View
+
+![Mobile-View](./public/screenshots/Mobile-View.png)
 
 ---
 
@@ -31,12 +45,12 @@ The app allows users to browse products, manage a shopping cart, and experience 
 
 ## 🛠️ Tech Stack
 
-* **React.js**
-* **Vite**
-* **JavaScript (ES6+)**
-* **CSS**
-* **Redux (Toolkit)**
-* Rest APIs
+- **React.js**
+- **Vite**
+- **JavaScript (ES6+)**
+- **CSS**
+- **Redux (Toolkit)**
+- Rest APIs
 
 ---
 
@@ -84,10 +98,10 @@ npm run dev
 
 ## 📌 Future Improvements
 
-* 🔐 Authentication system
-* 🌐 Backend integration (API)
-* 💳 Payment system
-* 📦 Order history
+- 🔐 Authentication system
+- 🌐 Backend integration (API)
+- 💳 Payment system
+- 📦 Order history
 
 ---
 
