@@ -15,19 +15,19 @@
 
 ### Home Page
 
-![Home](./public/screenshots/Home.png)
+![Home](./frontend/public/screenshots/Home.png)
 
 ### Cart
 
-![Cart](./public/screenshots/Cart.png)
+![Cart](./frontend/public/screenshots/Cart.png)
 
 ### Checkout
 
-![Checkout](./public/screenshots/Checkout.png)
+![Checkout](./frontend/public/screenshots/Checkout.png)
 
 ### Mobile-View
 
-![Mobile-View](./public/screenshots/Mobile-View.png)
+![Mobile-View](./frontend/public/screenshots/Mobile-View.png)
 
 ---
 
