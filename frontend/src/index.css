@@ -140,8 +140,10 @@ h1 {
   align-items: center;
   gap: 1rem;
   margin-bottom: 0.75rem;
+  flex-wrap: nowrap;
 }
 .cart-item p {
+  flex: 1;
   margin: 0;
   min-width: 0;
 }
@@ -430,10 +432,6 @@ h1 {
   .modal-actions {
     flex-wrap: wrap;
   }
-
-  .modal-actions > * {
-    flex: 1 1 auto;
-  }
 }
 
 @media (max-width: 640px) {
@@ -454,6 +452,16 @@ h1 {
   .control-row {
     flex-direction: column;
     gap: 0;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-actions {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
