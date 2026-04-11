@@ -2,17 +2,21 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
 
 const Modal = forwardRef(function Modal(
-  { children, disableClose = false },
+  { children, disableClose = false, onClose },
   ref,
 ) {
   const dialogRef = useRef();
 
   useImperativeHandle(ref, () => ({
     open() {
-      dialogRef.current.showModal();
+      if (!dialogRef.current?.open) {
+        dialogRef.current.showModal();
+      }
     },
     close() {
-      dialogRef.current.close();
+      if (dialogRef.current?.open) {
+        dialogRef.current.close();
+      }
     },
   }));
 
@@ -43,6 +47,7 @@ const Modal = forwardRef(function Modal(
       className="modal"
       onCancel={handlePreventClose}
       onClick={handleBackdrop}
+      onClose={onClose}
     >
       {!disableClose && (
         <button

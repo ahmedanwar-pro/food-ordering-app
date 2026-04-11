@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
 import CartModal from "./components/Cart/CartModal";
 import CheckoutModal from "./components/checkout/CheckoutModal";
@@ -14,7 +15,11 @@ function App() {
   const checkoutModalRef = useRef();
   const successModalRef = useRef();
   const submitErrorModalRef = useRef();
+  const suppressCartCloseRef = useRef(false);
+  const suppressCheckoutCloseRef = useRef(false);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const cartItems = useSelector((state) => state.cart.items);
   const submitErrorMessage = useSelector((state) => state.ui.isErrorSubmit);
@@ -23,26 +28,68 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
+  useEffect(() => {
+    const isCartRoute = location.pathname === "/cart";
+    const isCheckoutRoute = location.pathname === "/checkout";
+
+    if (isCartRoute) {
+      suppressCheckoutCloseRef.current = true;
+      checkoutModalRef.current.close();
+      cartModalRef.current.open();
+      return;
+    }
+
+    if (isCheckoutRoute) {
+      suppressCartCloseRef.current = true;
+      cartModalRef.current.close();
+      checkoutModalRef.current.open();
+      return;
+    }
+
+    suppressCartCloseRef.current = true;
+    suppressCheckoutCloseRef.current = true;
+    cartModalRef.current.close();
+    checkoutModalRef.current.close();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (cartItems.length === 0 && location.pathname !== "/") {
+      navigate("/", { replace: true });
+    }
+  }, [cartItems.length, location.pathname, navigate]);
+
   function openCart() {
-    cartModalRef.current.open();
+    navigate("/cart");
   }
 
   function goToCheckout() {
-    cartModalRef.current.close();
-    checkoutModalRef.current.open();
+    navigate("/checkout");
   }
 
   function backToCart() {
-    checkoutModalRef.current.close();
-    cartModalRef.current.open();
+    navigate("/cart");
   }
 
-  function CloseCart() {
-    cartModalRef.current.close();
+  function closeCart() {
+    if (suppressCartCloseRef.current) {
+      suppressCartCloseRef.current = false;
+      return;
+    }
+
+    navigate("/");
+  }
+
+  function closeCheckout() {
+    if (suppressCheckoutCloseRef.current) {
+      suppressCheckoutCloseRef.current = false;
+      return;
+    }
+
+    navigate("/");
   }
 
   function handleOrderSuccess() {
-    checkoutModalRef.current.close();
+    navigate("/");
     successModalRef.current.open();
   }
 
@@ -57,7 +104,7 @@ function App() {
 
   function closeSubmitError() {
     submitErrorModalRef.current.close();
-    checkoutModalRef.current.close();
+    navigate("/");
   }
 
   return (
@@ -65,12 +112,13 @@ function App() {
       <CartModal
         modalRef={cartModalRef}
         onGoToCheckout={goToCheckout}
-        onClose={CloseCart}
+        onClose={closeCart}
       />
 
       <CheckoutModal
         modalRef={checkoutModalRef}
         onBackToCart={backToCart}
+        onClose={closeCheckout}
         onSuccess={handleOrderSuccess}
         onError={showSubmitError}
       />

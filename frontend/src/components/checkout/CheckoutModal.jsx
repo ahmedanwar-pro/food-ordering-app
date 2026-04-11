@@ -8,6 +8,7 @@ import ChekoutActions from "./CheckoutActions";
 export default function CheckoutModal({
   modalRef,
   onBackToCart,
+  onClose,
   onSuccess,
   onError,
 }) {
@@ -25,7 +26,7 @@ export default function CheckoutModal({
   }
 
   return (
-    <Modal ref={modalRef} disableClose={isSubmitting}>
+    <Modal ref={modalRef} disableClose={isSubmitting} onClose={onClose}>
       <h2>Checkout</h2>
       <p>Total Amount: {currencyFormatter.format(totalAmount)}</p>
 

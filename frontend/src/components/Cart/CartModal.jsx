@@ -14,7 +14,7 @@ export default function CartModal({ modalRef, onGoToCheckout, onClose }) {
   }, [cartItems]);
 
   return (
-    <Modal ref={modalRef}>
+    <Modal ref={modalRef} onClose={onClose}>
       <CartItems />
       <CartActions onClose={onClose} onGoToCheckout={onGoToCheckout} />
     </Modal>
