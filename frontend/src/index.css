@@ -4,6 +4,9 @@
 * {
   box-sizing: border-box;
 }
+img {
+  max-width: 100%;
+}
 body {
   margin: 0;
   font-family: "Raleway", sans-serif;
@@ -34,19 +37,26 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   padding: 3rem 10%;
 }
 #main-header #title {
   display: flex;
   gap: 1rem;
   align-items: center;
+  min-width: 0;
 }
 #main-header #title img {
+  flex-shrink: 0;
   width: 4rem;
   height: 4rem;
   object-fit: contain;
   border-radius: 50%;
   border: 2px solid #ffc404;
+}
+#main-header #title h1 {
+  min-width: 0;
 }
 #main-header button {
   font-size: 1.5rem;
@@ -62,7 +72,7 @@ h1 {
   margin: 2rem auto;
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
   gap: 1rem;
 }
 .meal-item {
@@ -108,6 +118,8 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .quantity-value {
   min-width: 1.5rem;
@@ -129,10 +141,15 @@ h1 {
   gap: 1rem;
   margin-bottom: 0.75rem;
 }
+.cart-item p {
+  margin: 0;
+  min-width: 0;
+}
 .cart-item-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 .cart-total {
   font-weight: bold;
@@ -205,6 +222,13 @@ h1 {
   justify-content: flex-start;
   gap: 1rem;
 }
+.control-row .control {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.control-row .control input {
+  max-width: none;
+}
 
 /* ================ 3)modal ================== */
 .modal {
@@ -214,8 +238,10 @@ h1 {
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   padding: 1.75rem;
-  width: 80%;
+  width: min(calc(100% - 2rem), 40rem);
   max-width: 40rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
   animation: fade-slide-up 0.3s ease-out forwards;
 }
 .modal::backdrop {
@@ -389,4 +415,68 @@ h1 {
 }
 .remove-item-btn:active {
   transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  #main-header {
+    padding: 2rem 5%;
+  }
+
+  .cart-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .modal-actions {
+    flex-wrap: wrap;
+  }
+
+  .modal-actions > * {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  #main-header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  #main-header #title {
+    justify-content: center;
+  }
+
+  #meals {
+    width: min(100%, 30rem);
+    padding: 0.75rem;
+  }
+
+  .control-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    letter-spacing: 0.12rem;
+  }
+
+  #main-header #title {
+    gap: 0.75rem;
+  }
+
+  #main-header #title img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .meal-item img,
+  .meal-item--skeleton .sk-img {
+    height: 16rem;
+  }
+
+  .modal {
+    padding: 1.25rem;
+  }
 }
