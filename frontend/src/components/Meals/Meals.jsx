@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import MealItem from "./MealItem";
 import MealsErrorModal from "../UI/modals/MealsErrorModal";
 import MealsSkeleton from "../UI/loading/MealsSkeleton";
-import { fetchAvaliableMeals } from "../../store/mealsActions";
+import { fetchAvaliableMeals } from "../../store/meals/mealsActions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Meals() {

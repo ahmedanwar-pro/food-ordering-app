@@ -1,6 +1,6 @@
-import { uiActions } from "./uiSlice";
+import { uiActions } from "../uiSlice";
 import { availableMealsActions } from "./meals-Slice";
-import { getData } from "../util/http";
+import { getData } from "../../util/http";
 
 export function fetchAvaliableMeals() {
   return async (dispatch) => {
