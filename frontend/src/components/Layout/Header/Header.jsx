@@ -6,7 +6,7 @@ export default function Header({ onOpenCart }) {
     <header id="main-header">
       <div id="title">
         <img src={logoImg} alt="React Food" />
-        <h1>reactfood</h1>
+        <h1>foodie</h1>
       </div>
       <HeaderActions onOpenCart={onOpenCart} />
     </header>
