@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import Header from "./components/Layout/Header";
+import Header from "./components/Layout/Header/Header";
 import CartModal from "./components/Cart/CartModal";
 import CheckoutModal from "./components/checkout/CheckoutModal";
 import Meals from "./components/Meals/Meals";

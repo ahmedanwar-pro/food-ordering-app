@@ -1,4 +1,4 @@
-import logoImg from "../../assets/logo.jpg";
+import logoImg from "../../../assets/logo.jpg";
 import HeaderActions from "./HeaderActions";
 
 export default function Header({ onOpenCart }) {

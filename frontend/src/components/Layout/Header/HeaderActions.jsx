@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Button from "../UI/Button";
-import CartIcon from "../UI/icons/CartIcon";
+import Button from "../../../components/UI/Button";
+import CartIcon from "../../UI/icons/CartIcon";
 
 export default function HeaderActions({ onOpenCart }) {
   const cartItems = useSelector((state) => state.cart.items);

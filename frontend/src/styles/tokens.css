@@ -1,0 +1,23 @@
+:root {
+  --color-background-start: #29251c;
+  --color-background-end: #2c2306;
+  --color-surface-dark: #1d1a16;
+  --color-surface-dark-alt: #312c1d;
+  --color-surface-light: #e4ddd4;
+  --color-text-primary: #d9e2f1;
+  --color-text-dark: #1f1a09;
+  --color-text-muted: #333;
+  --color-accent: #ffc404;
+  --color-accent-hover: #ffab04;
+  --color-danger: #ff3b3b;
+  --color-danger-badge: #ff4d4f;
+  --color-white: #fff;
+  --color-border-light: #ccc;
+  --font-body: "Raleway", sans-serif;
+  --font-heading: "Lato", sans-serif;
+  --shadow-card: 0 1px 6px rgba(0, 0, 0, 0.3);
+  --shadow-modal: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --radius-card: 1rem;
+  --radius-control: 4px;
+  --radius-modal: 12px;
+}

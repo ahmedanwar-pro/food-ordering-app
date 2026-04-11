@@ -1,0 +1,33 @@
+#main-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 10%;
+}
+
+#main-header #title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+#main-header #title img {
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+}
+
+#main-header #title h1 {
+  min-width: 0;
+}
+
+#main-header button {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}
