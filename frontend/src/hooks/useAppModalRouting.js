@@ -49,7 +49,10 @@ export default function useAppModalRouting({
   }, [cartModalRef, checkoutModalRef, location.pathname]);
 
   useEffect(() => {
-    if (cartItems.length === 0 && location.pathname !== "/") {
+    const isModalRoute =
+      location.pathname === "/cart" || location.pathname === "/checkout";
+
+    if (cartItems.length === 0 && isModalRoute) {
       navigate("/", { replace: true });
     }
   }, [cartItems.length, location.pathname, navigate]);

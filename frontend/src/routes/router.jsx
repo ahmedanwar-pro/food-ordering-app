@@ -16,6 +16,10 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/meals/:mealId",
+    element: <App />,
+  },
+  {
     path: "*",
     element: <NotFoundPage />,
   },

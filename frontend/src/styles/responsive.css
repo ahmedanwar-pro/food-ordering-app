@@ -3,6 +3,15 @@
     padding: 2rem 5%;
   }
 
+  .meal-details-card {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .meal-details-info {
+    padding: 1.5rem;
+  }
+
   .cart-item {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -26,6 +35,19 @@
   #meals {
     width: min(100%, 30rem);
     padding: 0.75rem;
+  }
+
+  .meal-details-page {
+    width: min(100%, 42rem);
+    padding: 0.75rem;
+  }
+
+  .meal-details-title {
+    font-size: 2rem;
+  }
+
+  .meal-details-image img {
+    min-height: 20rem;
   }
 
   .control-row {
@@ -59,11 +81,23 @@
   }
 
   .meal-item img,
-  .meal-item--skeleton .sk-img {
+  .meal-item--skeleton .sk-img,
+  .meal-details-image img {
     height: 16rem;
+    min-height: 16rem;
   }
 
   .modal {
     padding: 1.25rem;
+  }
+
+  .meal-details-actions,
+  .meal-details-extra-info {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .meal-details-quantity-selector {
+    justify-content: space-between;
   }
 }
