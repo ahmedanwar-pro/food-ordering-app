@@ -1,28 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
+import Meals from "../components/Meals/Meals";
+import MealDetailsPage from "../pages/MealDetailsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/cart",
-    element: <App />,
-  },
-  {
-    path: "/checkout",
-    element: <App />,
+    element: <Meals />,
   },
   {
     path: "/meals/:mealId",
-    element: <App />,
+    element: <MealDetailsPage />,
   },
   {
     path: "*",
     element: <NotFoundPage />,
   },
-]);
+];
 
-export default router;
+export default routes;

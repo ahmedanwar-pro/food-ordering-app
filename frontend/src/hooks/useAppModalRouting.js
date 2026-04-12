@@ -5,6 +5,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { uiActions } from "../store/uiSlice";
 import { STORAGE_KEY } from "../util/localStorage";
 
+function getNavigationTarget(targetLocation) {
+  if (!targetLocation) {
+    return { to: "/" };
+  }
+
+  return {
+    to: {
+      pathname: targetLocation.pathname,
+      search: targetLocation.search,
+      hash: targetLocation.hash,
+    },
+    state: targetLocation.state,
+  };
+}
+
 export default function useAppModalRouting({
   cartModalRef,
   checkoutModalRef,
@@ -19,6 +34,7 @@ export default function useAppModalRouting({
 
   const cartItems = useSelector((state) => state.cart.items);
   const submitErrorMessage = useSelector((state) => state.ui.isErrorSubmit);
+  const backgroundLocation = location.state?.backgroundLocation;
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
@@ -29,23 +45,25 @@ export default function useAppModalRouting({
     const isCheckoutRoute = location.pathname === "/checkout";
 
     if (isCartRoute) {
+      suppressCartCloseRef.current = false;
       suppressCheckoutCloseRef.current = true;
-      checkoutModalRef.current.close();
-      cartModalRef.current.open();
+      checkoutModalRef.current?.close();
+      cartModalRef.current?.open();
       return;
     }
 
     if (isCheckoutRoute) {
       suppressCartCloseRef.current = true;
-      cartModalRef.current.close();
-      checkoutModalRef.current.open();
+      suppressCheckoutCloseRef.current = false;
+      cartModalRef.current?.close();
+      checkoutModalRef.current?.open();
       return;
     }
 
     suppressCartCloseRef.current = true;
     suppressCheckoutCloseRef.current = true;
-    cartModalRef.current.close();
-    checkoutModalRef.current.close();
+    cartModalRef.current?.close();
+    checkoutModalRef.current?.close();
   }, [cartModalRef, checkoutModalRef, location.pathname]);
 
   useEffect(() => {
@@ -53,20 +71,51 @@ export default function useAppModalRouting({
       location.pathname === "/cart" || location.pathname === "/checkout";
 
     if (cartItems.length === 0 && isModalRoute) {
-      navigate("/", { replace: true });
+      const fallbackTarget = getNavigationTarget(backgroundLocation);
+
+      navigate(fallbackTarget.to, {
+        replace: true,
+        state: fallbackTarget.state,
+      });
     }
-  }, [cartItems.length, location.pathname, navigate]);
+  }, [backgroundLocation, cartItems.length, location.pathname, navigate]);
+
+  function getModalBackgroundLocation() {
+    return backgroundLocation || location;
+  }
+
+  function navigateToModal(pathname) {
+    navigate(pathname, {
+      state: { backgroundLocation: getModalBackgroundLocation() },
+    });
+  }
+
+  function replaceModal(pathname) {
+    navigate(pathname, {
+      replace: true,
+      state: { backgroundLocation: getModalBackgroundLocation() },
+    });
+  }
+
+  function closeToBackground() {
+    const target = getNavigationTarget(backgroundLocation);
+
+    navigate(target.to, {
+      replace: true,
+      state: target.state,
+    });
+  }
 
   function openCart() {
-    navigate("/cart");
+    navigateToModal("/cart");
   }
 
   function goToCheckout() {
-    navigate("/checkout");
+    replaceModal("/checkout");
   }
 
   function backToCart() {
-    navigate("/cart");
+    replaceModal("/cart");
   }
 
   function closeCart() {
@@ -75,7 +124,7 @@ export default function useAppModalRouting({
       return;
     }
 
-    navigate("/");
+    closeToBackground();
   }
 
   function closeCheckout() {
@@ -84,26 +133,26 @@ export default function useAppModalRouting({
       return;
     }
 
-    navigate("/");
+    closeToBackground();
   }
 
   function handleOrderSuccess() {
-    navigate("/");
-    successModalRef.current.open();
+    closeToBackground();
+    successModalRef.current?.open();
   }
 
   function closeSuccess() {
-    successModalRef.current.close();
+    successModalRef.current?.close();
   }
 
   function showSubmitError(message) {
     dispatch(uiActions.isErrorSubmit(message));
-    submitErrorModalRef.current.open();
+    submitErrorModalRef.current?.open();
   }
 
   function closeSubmitError() {
-    submitErrorModalRef.current.close();
-    navigate("/");
+    submitErrorModalRef.current?.close();
+    closeToBackground();
   }
 
   return {

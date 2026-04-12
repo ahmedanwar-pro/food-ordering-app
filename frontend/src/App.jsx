@@ -1,17 +1,25 @@
 import { useRef } from "react";
-import { matchPath, useLocation } from "react-router-dom";
+import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
-import Meals from "./components/Meals/Meals";
 import AppModals from "./components/App/AppModals";
 import useAppModalRouting from "./hooks/useAppModalRouting";
-import MealDetailsPage from "./pages/MealDetailsPage";
+import routes from "./routes/router";
 
 function App() {
   const cartModalRef = useRef();
   const checkoutModalRef = useRef();
   const successModalRef = useRef();
   const submitErrorModalRef = useRef();
+
   const location = useLocation();
+  const backgroundLocation = location.state?.backgroundLocation;
+  const isModalRoute =
+    location.pathname === "/cart" || location.pathname === "/checkout";
+  const pageLocation =
+    backgroundLocation ||
+    (isModalRoute ? { ...location, pathname: "/" } : location);
+  const pageContent = useRoutes(routes, pageLocation);
+
   const {
     openCart,
     goToCheckout,
@@ -29,9 +37,6 @@ function App() {
     successModalRef,
     submitErrorModalRef,
   });
-  const isMealDetailsRoute = Boolean(
-    matchPath("/meals/:mealId", location.pathname),
-  );
 
   return (
     <>
@@ -52,7 +57,7 @@ function App() {
       />
 
       <Header onOpenCart={openCart} />
-      {isMealDetailsRoute ? <MealDetailsPage /> : <Meals />}
+      {pageContent}
     </>
   );
 }

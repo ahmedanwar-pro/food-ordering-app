@@ -14,21 +14,17 @@ export default function CartItems() {
     <>
       <h2>Your Cart</h2>
 
-      {cartItems.length === 0 && <p>Your cart is empty.</p>}
-
-      {cartItems.length > 0 && (
-        <ul className="cart-items">
-          {cartItems.map((item) => (
-            <li key={item.id} className="cart-item">
-              <p>
-                {item.name} - {item.quantity} x
-                {currencyFormatter.format(item.price)}
-              </p>
-              <ItemActions item={item} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="cart-items">
+        {cartItems.map((item) => (
+          <li key={item.id} className="cart-item">
+            <p>
+              {item.name} - {item.quantity} x
+              {currencyFormatter.format(item.price)}
+            </p>
+            <ItemActions item={item} />
+          </li>
+        ))}
+      </ul>
 
       <p className="cart-total">{currencyFormatter.format(totalPrice)}</p>
     </>
