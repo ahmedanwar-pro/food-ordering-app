@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { currencyFormatter } from "../../util/Formatting";
-import MealItemActions from "./MealItemActions";
+import MealItemActions from "../UI/MealItemActions";
 
 export default function MealItem({ meal }) {
   return (
@@ -16,7 +16,7 @@ export default function MealItem({ meal }) {
             <p className="meal-item-description">{meal.description}</p>
           </div>
         </Link>
-        <MealItemActions meal={meal} />
+        <MealItemActions meal={meal} className="meal-item-quantity-value" />
       </article>
     </li>
   );

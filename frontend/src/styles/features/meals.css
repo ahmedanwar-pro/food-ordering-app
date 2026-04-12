@@ -51,6 +51,7 @@
   font-weight: bold;
 }
 
-.meal-item-actions {
-  margin-bottom: 1.5rem;
+.meal-item-quantity-value {
+  font-size: 1.4rem;
+  font-weight: 700;
 }

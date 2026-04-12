@@ -1,4 +1,4 @@
-import ItemActions from "../UI/itemActions";
+import MealItemActions from "../UI/MealItemActions";
 import { useSelector } from "react-redux";
 import { currencyFormatter } from "../../util/Formatting";
 
@@ -21,7 +21,7 @@ export default function CartItems() {
               {item.name} - {item.quantity} x
               {currencyFormatter.format(item.price)}
             </p>
-            <ItemActions item={item} />
+            <MealItemActions meal={item} className="cart-item-quantity-value" />
           </li>
         ))}
       </ul>
