@@ -1,6 +1,6 @@
 import MealItemActions from "../UI/MealItemActions";
 import { useSelector } from "react-redux";
-import { currencyFormatter } from "../../util/Formatting";
+import { currencyFormatter } from "../../util/currencyFormatter";
 
 export default function CartItems() {
   const cartItems = useSelector((state) => state.cart.items);

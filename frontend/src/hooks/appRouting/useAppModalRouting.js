@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { uiActions } from "../store/uiSlice";
-import { STORAGE_KEY } from "../util/localStorage";
+import { uiActions } from "../../store/ui/uiSlice";
+import { STORAGE_KEY } from "../../util/cartStorage";
 
 function getNavigationTarget(targetLocation) {
   if (!targetLocation) {

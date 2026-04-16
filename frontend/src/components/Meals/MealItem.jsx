@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { currencyFormatter } from "../../util/Formatting";
+import { currencyFormatter } from "../../util/currencyFormatter";
 import MealItemActions from "../UI/MealItemActions";
 
 export default function MealItem({ meal }) {

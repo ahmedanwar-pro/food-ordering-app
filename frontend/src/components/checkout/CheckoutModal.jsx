@@ -1,7 +1,7 @@
-import { currencyFormatter } from "../../util/Formatting";
+import { currencyFormatter } from "../../util/currencyFormatter";
 import Modal from "../UI/modals/Modal";
 import { useSelector, useDispatch } from "react-redux";
-import { submitOrder } from "../../store/orderActions";
+import { submitOrder } from "../../store/order/orderActions";
 import { CheckoutFormFields } from "./CheckoutFormFields";
 import ChekoutActions from "./CheckoutActions";
 

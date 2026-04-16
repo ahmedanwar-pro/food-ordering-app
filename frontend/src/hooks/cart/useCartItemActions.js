@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
-import { cartActions } from "../store/cartSlice";
-import { formActions } from "../store/formSlice";
+import { cartActions } from "../../store/cart/cartSlice";
 
-export default function handlerActions() {
+export default function useCartItemActions() {
   const dispatch = useDispatch();
 
   function removeItemCompletly(id) {
@@ -21,16 +20,10 @@ export default function handlerActions() {
     dispatch(cartActions.clearCart());
   }
 
-  function onChangeFormCheckout(event) {
-    const { name, value } = event.target;
-    dispatch(formActions.handleFormOnChange({ name, value }));
-  }
-
   return {
     addItem,
     removeItem,
     removeItemCompletly,
     clearCart,
-    onChangeFormCheckout,
   };
 }

@@ -8,7 +8,7 @@ const initialState = {
   city: "",
 };
 
-const formSlice = createSlice({
+const checkoutFormSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
@@ -22,5 +22,5 @@ const formSlice = createSlice({
   },
 });
 
-export const formActions = formSlice.actions;
-export default formSlice.reducer;
+export const checkoutFormActions = checkoutFormSlice.actions;
+export default checkoutFormSlice.reducer;

@@ -1,4 +1,4 @@
-import handlerActions from "../../util/handlerActions";
+import useCartItemActions from "../../hooks/cart/useCartItemActions";
 import Button from "./Button";
 import TrashIcon from "./icons/TrashIcon";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ export default function MealItemActions({ meal, className }) {
   const cartItem = cartItems.find((item) => item.id === meal.id);
   const itemQuantity = cartItem ? cartItem.quantity : 0;
 
-  const { addItem, removeItem, removeItemCompletly } = handlerActions();
+  const { addItem, removeItem, removeItemCompletly } = useCartItemActions();
   const { id, name, quantity } = meal;
 
   return (

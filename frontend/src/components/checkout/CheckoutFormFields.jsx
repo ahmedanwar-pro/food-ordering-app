@@ -1,11 +1,15 @@
 import Input from "../UI/Input";
-import handlerActions from "../../util/handlerActions";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { checkoutFormActions } from "../../store/checkoutForm/checkoutFormSlice";
 
 export function CheckoutFormFields() {
-  const { onChangeFormCheckout } = handlerActions();
+  const form = useSelector((state) => state.checkoutForm);
+  const dispatch = useDispatch();
 
-  const form = useSelector((state) => state.form);
+  function handleChange(event) {
+    const { name, value } = event.target;
+    dispatch(checkoutFormActions.handleFormOnChange({ name, value }));
+  }
 
   return (
     <>
@@ -13,7 +17,7 @@ export function CheckoutFormFields() {
         label="Full Name"
         name="fullName"
         value={form.fullName}
-        onChange={onChangeFormCheckout}
+        onChange={handleChange}
         required
       />
       <Input
@@ -21,14 +25,14 @@ export function CheckoutFormFields() {
         type="email"
         name="email"
         value={form.email}
-        onChange={onChangeFormCheckout}
+        onChange={handleChange}
         required
       />
       <Input
         label="Street"
         name="street"
         value={form.street}
-        onChange={onChangeFormCheckout}
+        onChange={handleChange}
         required
       />
       <div className="control-row">
@@ -36,14 +40,14 @@ export function CheckoutFormFields() {
           label="Postal Code"
           name="postalCode"
           value={form.postalCode}
-          onChange={onChangeFormCheckout}
+          onChange={handleChange}
           required
         />
         <Input
           label="City"
           name="city"
           value={form.city}
-          onChange={onChangeFormCheckout}
+          onChange={handleChange}
           required
         />
       </div>

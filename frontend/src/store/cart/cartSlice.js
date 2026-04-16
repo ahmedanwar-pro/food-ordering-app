@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import LoadCartFromStorage from "../util/localStorage";
-import { STORAGE_KEY } from "../util/localStorage";
+import LoadCartFromStorage, { STORAGE_KEY } from "../../util/cartStorage";
 
 const initialState = { items: LoadCartFromStorage() };
 

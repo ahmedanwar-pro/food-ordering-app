@@ -1,4 +1,4 @@
-import { currencyFormatter } from "../../util/Formatting";
+import { currencyFormatter } from "../../util/currencyFormatter";
 
 export default function MealDetailsMeta({ price }) {
   return (

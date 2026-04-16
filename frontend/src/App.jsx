@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
 import AppModals from "./components/App/AppModals";
-import useAppModalRouting from "./hooks/useAppModalRouting";
+import useAppModalRouting from "./hooks/appRouting/useAppModalRouting";
 import routes from "./routes/router";
 
 function App() {
