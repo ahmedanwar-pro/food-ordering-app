@@ -2,13 +2,16 @@ import CartModal from "../Cart/CartModal";
 import CheckoutModal from "../checkout/CheckoutModal";
 import SuccessModal from "../UI/modals/SuccessModal";
 import SubmitErrorModal from "../UI/modals/SubmitErrorModal";
+import MealsErrorModal from "../UI/modals/MealsErrorModal";
 
 export default function AppModals({
   cartModalRef,
   checkoutModalRef,
   successModalRef,
   submitErrorModalRef,
+  mealsErrorModalRef,
   submitErrorMessage,
+  mealsErrorMessage,
   onGoToCheckout,
   onCloseCart,
   onBackToCart,
@@ -17,6 +20,7 @@ export default function AppModals({
   onOrderError,
   onCloseSuccess,
   onCloseSubmitError,
+  retryFetchMeals,
 }) {
   return (
     <>
@@ -44,6 +48,13 @@ export default function AppModals({
         modalRef={submitErrorModalRef}
         message={submitErrorMessage}
         onClose={onCloseSubmitError}
+        disableClose
+      />
+
+      <MealsErrorModal
+        modalRef={mealsErrorModalRef}
+        message={mealsErrorMessage}
+        onRetry={retryFetchMeals}
         disableClose
       />
     </>

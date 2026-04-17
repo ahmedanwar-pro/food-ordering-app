@@ -1,159 +1,66 @@
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { uiActions } from "../../store/ui/uiSlice";
-import { STORAGE_KEY } from "../../util/cartStorage";
-
-function getNavigationTarget(targetLocation) {
-  if (!targetLocation) {
-    return { to: "/" };
-  }
-
-  return {
-    to: {
-      pathname: targetLocation.pathname,
-      search: targetLocation.search,
-      hash: targetLocation.hash,
-    },
-    state: targetLocation.state,
-  };
-}
+import {
+  useCartModalRouting,
+  useCheckoutModalRouting,
+  useMealsErrorModalRouting,
+  useOrderSuccessModalRouting,
+  useSubmitErrorModalRouting,
+} from "./modals";
+import { useModalNavigation, usePersistCartStorage } from "./shared";
 
 export default function useAppModalRouting({
   cartModalRef,
   checkoutModalRef,
   successModalRef,
   submitErrorModalRef,
+  mealsErrorModalRef,
 }) {
-  const suppressCartCloseRef = useRef(false);
-  const suppressCheckoutCloseRef = useRef(false);
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-
+  const {
+    location,
+    backgroundLocation,
+    navigate,
+    navigateToModal,
+    replaceModal,
+    closeToBackground,
+  } = useModalNavigation();
   const cartItems = useSelector((state) => state.cart.items);
-  const submitErrorMessage = useSelector((state) => state.ui.isErrorSubmit);
-  const backgroundLocation = location.state?.backgroundLocation;
+  usePersistCartStorage(cartItems);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
-  }, [cartItems]);
+  const { openCart, backToCart, closeCart } = useCartModalRouting({
+    cartItemsCount: cartItems.length,
+    cartModalRef,
+    checkoutModalRef,
+    location,
+    backgroundLocation,
+    navigate,
+    navigateToModal,
+    replaceModal,
+    closeToBackground,
+  });
 
-  useEffect(() => {
-    const isCartRoute = location.pathname === "/cart";
-    const isCheckoutRoute = location.pathname === "/checkout";
+  const { goToCheckout, closeCheckout } = useCheckoutModalRouting({
+    cartModalRef,
+    checkoutModalRef,
+    location,
+    replaceModal,
+    closeToBackground,
+  });
 
-    if (isCartRoute) {
-      suppressCartCloseRef.current = false;
-      suppressCheckoutCloseRef.current = true;
-      checkoutModalRef.current?.close();
-      cartModalRef.current?.open();
-      return;
-    }
+  const { handleOrderSuccess, closeSuccess } = useOrderSuccessModalRouting({
+    successModalRef,
+    closeToBackground,
+  });
 
-    if (isCheckoutRoute) {
-      suppressCartCloseRef.current = true;
-      suppressCheckoutCloseRef.current = false;
-      cartModalRef.current?.close();
-      checkoutModalRef.current?.open();
-      return;
-    }
-
-    suppressCartCloseRef.current = true;
-    suppressCheckoutCloseRef.current = true;
-    cartModalRef.current?.close();
-    checkoutModalRef.current?.close();
-  }, [cartModalRef, checkoutModalRef, location.pathname]);
-
-  useEffect(() => {
-    const isModalRoute =
-      location.pathname === "/cart" || location.pathname === "/checkout";
-
-    if (cartItems.length === 0 && isModalRoute) {
-      const fallbackTarget = getNavigationTarget(backgroundLocation);
-
-      navigate(fallbackTarget.to, {
-        replace: true,
-        state: fallbackTarget.state,
-      });
-    }
-  }, [backgroundLocation, cartItems.length, location.pathname, navigate]);
-
-  function getModalBackgroundLocation() {
-    return backgroundLocation || location;
-  }
-
-  function navigateToModal(pathname) {
-    navigate(pathname, {
-      state: { backgroundLocation: getModalBackgroundLocation() },
+  const { showSubmitError, closeSubmitError, submitErrorMessage } =
+    useSubmitErrorModalRouting({
+      submitErrorModalRef,
+      closeToBackground,
     });
-  }
 
-  function replaceModal(pathname) {
-    navigate(pathname, {
-      replace: true,
-      state: { backgroundLocation: getModalBackgroundLocation() },
-    });
-  }
-
-  function closeToBackground() {
-    const target = getNavigationTarget(backgroundLocation);
-
-    navigate(target.to, {
-      replace: true,
-      state: target.state,
-    });
-  }
-
-  function openCart() {
-    navigateToModal("/cart");
-  }
-
-  function goToCheckout() {
-    replaceModal("/checkout");
-  }
-
-  function backToCart() {
-    replaceModal("/cart");
-  }
-
-  function closeCart() {
-    if (suppressCartCloseRef.current) {
-      suppressCartCloseRef.current = false;
-      return;
-    }
-
-    closeToBackground();
-  }
-
-  function closeCheckout() {
-    if (suppressCheckoutCloseRef.current) {
-      suppressCheckoutCloseRef.current = false;
-      return;
-    }
-
-    closeToBackground();
-  }
-
-  function handleOrderSuccess() {
-    closeToBackground();
-    successModalRef.current?.open();
-  }
-
-  function closeSuccess() {
-    successModalRef.current?.close();
-  }
-
-  function showSubmitError(message) {
-    dispatch(uiActions.isErrorSubmit(message));
-    submitErrorModalRef.current?.open();
-  }
-
-  function closeSubmitError() {
-    submitErrorModalRef.current?.close();
-    closeToBackground();
-  }
+  const { retryFetchMeals, mealsErrorMessage } = useMealsErrorModalRouting({
+    mealsErrorModalRef,
+  });
 
   return {
     openCart,
@@ -165,6 +72,8 @@ export default function useAppModalRouting({
     closeSuccess,
     showSubmitError,
     closeSubmitError,
+    retryFetchMeals,
     submitErrorMessage,
+    mealsErrorMessage,
   };
 }

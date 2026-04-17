@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
 import AppModals from "./components/App/AppModals";
-import useAppModalRouting from "./hooks/appRouting/useAppModalRouting";
+import useAppModalRouting from "./hooks/appRouting";
 import routes from "./routes/router";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   const checkoutModalRef = useRef();
   const successModalRef = useRef();
   const submitErrorModalRef = useRef();
+  const mealsErrorModalRef = useRef();
 
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
@@ -30,12 +31,15 @@ function App() {
     closeSuccess,
     showSubmitError,
     closeSubmitError,
+    retryFetchMeals,
     submitErrorMessage,
+    mealsErrorMessage,
   } = useAppModalRouting({
     cartModalRef,
     checkoutModalRef,
     successModalRef,
     submitErrorModalRef,
+    mealsErrorModalRef,
   });
 
   return (
@@ -45,7 +49,9 @@ function App() {
         checkoutModalRef={checkoutModalRef}
         successModalRef={successModalRef}
         submitErrorModalRef={submitErrorModalRef}
+        mealsErrorModalRef={mealsErrorModalRef}
         submitErrorMessage={submitErrorMessage}
+        mealsErrorMessage={mealsErrorMessage}
         onGoToCheckout={goToCheckout}
         onCloseCart={closeCart}
         onBackToCart={backToCart}
@@ -54,6 +60,7 @@ function App() {
         onOrderError={showSubmitError}
         onCloseSuccess={closeSuccess}
         onCloseSubmitError={closeSubmitError}
+        retryFetchMeals={retryFetchMeals}
       />
 
       <Header onOpenCart={openCart} />
