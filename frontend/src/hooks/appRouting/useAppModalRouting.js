@@ -23,6 +23,7 @@ export default function useAppModalRouting({
     replaceModal,
     closeToBackground,
   } = useModalNavigation();
+
   const cartItems = useSelector((state) => state.cart.items);
   usePersistCartStorage(cartItems);
 
@@ -62,17 +63,27 @@ export default function useAppModalRouting({
   });
 
   return {
-    openCart,
-    goToCheckout,
-    backToCart,
-    closeCart,
-    closeCheckout,
-    handleOrderSuccess,
-    closeSuccess,
-    showSubmitError,
-    closeSubmitError,
-    retryFetchMeals,
-    submitErrorMessage,
-    mealsErrorMessage,
+    cartActions: {
+      goToCheckout,
+      closeCart,
+      openCart,
+    },
+    checkoutActions: {
+      backToCart,
+      closeCheckout,
+      handleOrderSuccess,
+      showSubmitError,
+    },
+    submitSuccessActions: {
+      closeSuccess,
+    },
+    submitErrorActions: {
+      closeSubmitError,
+      submitErrorMessage,
+    },
+    mealsErrorActions: {
+      retryFetchMeals,
+      mealsErrorMessage,
+    },
   };
 }

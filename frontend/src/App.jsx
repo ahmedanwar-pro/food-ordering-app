@@ -3,6 +3,7 @@ import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
 import AppModals from "./components/App/AppModals";
 import useAppModalRouting from "./hooks/appRouting";
+import { usePageContentLocation } from "./hooks/appRouting/shared";
 import routes from "./routes/router";
 
 function App() {
@@ -12,28 +13,19 @@ function App() {
   const submitErrorModalRef = useRef();
   const mealsErrorModalRef = useRef();
 
-  const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
-  const isModalRoute =
-    location.pathname === "/cart" || location.pathname === "/checkout";
-  const pageLocation =
-    backgroundLocation ||
-    (isModalRoute ? { ...location, pathname: "/" } : location);
-  const pageContent = useRoutes(routes, pageLocation);
+  const pageContent = usePageContentLocation(routes);
 
   const {
-    openCart,
-    goToCheckout,
-    backToCart,
-    closeCart,
-    closeCheckout,
-    handleOrderSuccess,
-    closeSuccess,
-    showSubmitError,
-    closeSubmitError,
-    retryFetchMeals,
-    submitErrorMessage,
-    mealsErrorMessage,
+    checkoutActions: {
+      backToCart,
+      closeCheckout,
+      handleOrderSuccess,
+      showSubmitError,
+    },
+    cartActions: { goToCheckout, closeCart, openCart },
+    submitSuccessActions: { closeSuccess },
+    submitErrorActions: { closeSubmitError, submitErrorMessage },
+    mealsErrorActions: { retryFetchMeals, mealsErrorMessage },
   } = useAppModalRouting({
     cartModalRef,
     checkoutModalRef,
