@@ -1,14 +1,14 @@
 export default function useOrderSuccessModalRouting({
-  successModalRef,
+  submitSuccessModalRef,
   closeToBackground,
 }) {
   function handleOrderSuccess() {
     closeToBackground();
-    successModalRef.current?.open();
+    submitSuccessModalRef.current?.open();
   }
 
   function closeSuccess() {
-    successModalRef.current?.close();
+    submitSuccessModalRef.current?.close();
   }
 
   return {
@@ -16,4 +16,3 @@ export default function useOrderSuccessModalRouting({
     closeSuccess,
   };
 }
-

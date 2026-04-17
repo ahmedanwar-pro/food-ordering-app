@@ -8,7 +8,7 @@ import routes from "./routes/router";
 function App() {
   const cartModalRef = useRef();
   const checkoutModalRef = useRef();
-  const successModalRef = useRef();
+  const submitSuccessModalRef = useRef();
   const submitErrorModalRef = useRef();
   const mealsErrorModalRef = useRef();
 
@@ -37,7 +37,7 @@ function App() {
   } = useAppModalRouting({
     cartModalRef,
     checkoutModalRef,
-    successModalRef,
+    submitSuccessModalRef,
     submitErrorModalRef,
     mealsErrorModalRef,
   });
@@ -45,22 +45,34 @@ function App() {
   return (
     <>
       <AppModals
-        cartModalRef={cartModalRef}
-        checkoutModalRef={checkoutModalRef}
-        successModalRef={successModalRef}
-        submitErrorModalRef={submitErrorModalRef}
-        mealsErrorModalRef={mealsErrorModalRef}
-        submitErrorMessage={submitErrorMessage}
-        mealsErrorMessage={mealsErrorMessage}
-        onGoToCheckout={goToCheckout}
-        onCloseCart={closeCart}
-        onBackToCart={backToCart}
-        onCloseCheckout={closeCheckout}
-        onOrderSuccess={handleOrderSuccess}
-        onOrderError={showSubmitError}
-        onCloseSuccess={closeSuccess}
-        onCloseSubmitError={closeSubmitError}
-        retryFetchMeals={retryFetchMeals}
+        refs={{
+          cartModalRef,
+          checkoutModalRef,
+          submitSuccessModalRef,
+          submitErrorModalRef,
+          mealsErrorModalRef,
+        }}
+        checkoutActions={{
+          backToCart,
+          closeCheckout,
+          handleOrderSuccess,
+          showSubmitError,
+        }}
+        cartActions={{
+          goToCheckout,
+          closeCart,
+        }}
+        submitSuccessActions={{
+          closeSuccess,
+        }}
+        submitErrorActions={{
+          closeSubmitError,
+          submitErrorMessage,
+        }}
+        mealsErrorActions={{
+          retryFetchMeals,
+          mealsErrorMessage,
+        }}
       />
 
       <Header onOpenCart={openCart} />

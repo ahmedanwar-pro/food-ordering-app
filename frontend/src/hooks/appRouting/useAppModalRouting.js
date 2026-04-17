@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-
 import {
   useCartModalRouting,
   useCheckoutModalRouting,
@@ -12,7 +11,7 @@ import { useModalNavigation, usePersistCartStorage } from "./shared";
 export default function useAppModalRouting({
   cartModalRef,
   checkoutModalRef,
-  successModalRef,
+  submitSuccessModalRef,
   submitErrorModalRef,
   mealsErrorModalRef,
 }) {
@@ -48,7 +47,7 @@ export default function useAppModalRouting({
   });
 
   const { handleOrderSuccess, closeSuccess } = useOrderSuccessModalRouting({
-    successModalRef,
+    submitSuccessModalRef,
     closeToBackground,
   });
 

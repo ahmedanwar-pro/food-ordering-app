@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import Button from "../Button";
 
-export default function SuccessModal({ modalRef, onOkay, disableClose }) {
+export default function SubmitSuccessModal({ modalRef, onOkay, disableClose }) {
   return (
     <Modal ref={modalRef} disableClose={disableClose}>
       <h2>Success!</h2>

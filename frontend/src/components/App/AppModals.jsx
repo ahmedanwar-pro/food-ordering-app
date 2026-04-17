@@ -1,53 +1,54 @@
 import CartModal from "../Cart/CartModal";
 import CheckoutModal from "../checkout/CheckoutModal";
-import SuccessModal from "../UI/modals/SuccessModal";
+import SubmitSuccessModal from "../UI/modals/SubmitSuccessModal";
 import SubmitErrorModal from "../UI/modals/SubmitErrorModal";
 import MealsErrorModal from "../UI/modals/MealsErrorModal";
 
 export default function AppModals({
-  cartModalRef,
-  checkoutModalRef,
-  successModalRef,
-  submitErrorModalRef,
-  mealsErrorModalRef,
-  submitErrorMessage,
-  mealsErrorMessage,
-  onGoToCheckout,
-  onCloseCart,
-  onBackToCart,
-  onCloseCheckout,
-  onOrderSuccess,
-  onOrderError,
-  onCloseSuccess,
-  onCloseSubmitError,
-  retryFetchMeals,
+  refs: {
+    cartModalRef,
+    checkoutModalRef,
+    submitSuccessModalRef,
+    submitErrorModalRef,
+    mealsErrorModalRef,
+  },
+  checkoutActions: {
+    backToCart,
+    closeCheckout,
+    handleOrderSuccess,
+    showSubmitError,
+  },
+  cartActions: { goToCheckout, closeCart },
+  submitSuccessActions: { closeSuccess },
+  submitErrorActions: { closeSubmitError, submitErrorMessage },
+  mealsErrorActions: { retryFetchMeals, mealsErrorMessage },
 }) {
   return (
     <>
       <CartModal
         modalRef={cartModalRef}
-        onGoToCheckout={onGoToCheckout}
-        onClose={onCloseCart}
+        onGoToCheckout={goToCheckout}
+        onClose={closeCart}
       />
 
       <CheckoutModal
         modalRef={checkoutModalRef}
-        onBackToCart={onBackToCart}
-        onClose={onCloseCheckout}
-        onSuccess={onOrderSuccess}
-        onError={onOrderError}
+        onBackToCart={backToCart}
+        onClose={closeCheckout}
+        onSuccess={handleOrderSuccess}
+        onError={showSubmitError}
       />
 
-      <SuccessModal
-        modalRef={successModalRef}
-        onOkay={onCloseSuccess}
+      <SubmitSuccessModal
+        modalRef={submitSuccessModalRef}
+        onOkay={closeSuccess}
         disableClose
       />
 
       <SubmitErrorModal
         modalRef={submitErrorModalRef}
         message={submitErrorMessage}
-        onClose={onCloseSubmitError}
+        onClose={closeSubmitError}
         disableClose
       />
 
