@@ -1,14 +1,59 @@
+/* Meals */
 #meals {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
   gap: 1rem;
-  width: 90%;
-  max-width: 70rem;
-  margin: 2rem auto;
+  width: 100%;
+  margin: 0;
   padding: 1rem;
   list-style: none;
 }
+.meals-section {
+  width: 90%;
+  max-width: 70rem;
+  margin: 0 auto;
+}
 
+/* Meals Search */
+.meals-search {
+  padding: 0 1rem;
+}
+.meals-search .control input {
+  max-width: none;
+  background-color: var(--color-surface-light);
+  color: var(--color-text-dark);
+  height: 40px;
+}
+.meals-empty-state {
+  margin: 1rem;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface-dark);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.meals-empty-state h2 {
+  margin-bottom: 0.75rem;
+  color: var(--color-accent);
+}
+.meals-empty-state p {
+  margin: 0;
+}
+.empty-meal {
+  height: 100%;
+}
+
+/* Meal Item */
+.meal-item-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.meal-item-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -4px;
+}
 .meal-item {
   overflow: hidden;
   border-radius: var(--radius-card);
@@ -16,30 +61,25 @@
   text-align: center;
   box-shadow: var(--shadow-card);
 }
-
 .meal-item article {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
-
 .meal-item img {
   width: 100%;
   height: 20rem;
   object-fit: cover;
 }
-
 .meal-item h3 {
   margin: 0.75rem 0;
   font-size: 1.5rem;
   font-weight: bold;
 }
-
 .meal-item-description {
   margin: 1rem;
 }
-
 .meal-item-price {
   display: inline-block;
   margin: 0;
@@ -50,8 +90,10 @@
   font-size: 0.9rem;
   font-weight: bold;
 }
-
 .meal-item-quantity-value {
   font-size: 1.4rem;
   font-weight: 700;
+}
+.meal-item .text-button {
+  margin-left: -46px;
 }
